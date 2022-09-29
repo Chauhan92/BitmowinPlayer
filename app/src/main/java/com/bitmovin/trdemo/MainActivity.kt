@@ -15,12 +15,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private val viewModel: TRPlayerViewModel by viewModels()
-    private val adapter = TRPlayerAdapter(player::seek)
+    private val adapter = TRPlayerAdapter{ player.seek(it) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         player = Player.create(this).also { binding.playerView.player = it }
 
         binding.recyclerView.adapter = adapter
